@@ -7,9 +7,22 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+
+app.get('/queueCreated', function(req, res){
+ 	// io.emit('chat message', 'msg-test');
+ 	// io.on('connection', function(socket){
+ 	io.emit('chat message', '');
+ 	// // });
+ 	console.log('queueCreated!');
+ 	res.send('');
+});
+
+
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    socket.broadcast.emit('chat message', msg);
+    console.log('Record change!');
+
   });
 });
 
